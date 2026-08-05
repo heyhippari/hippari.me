@@ -20,6 +20,9 @@ export default defineConfig({
       cssCodeSplit: true,
       minify: 'oxc',
     },
+    ssr: {
+      external: ['@resvg/resvg-js', 'satori'],
+    },
   },
 
   integrations: [mdx(), sitemap()],
