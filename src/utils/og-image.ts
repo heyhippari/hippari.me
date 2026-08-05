@@ -10,7 +10,7 @@
 import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import satori from 'satori';
-import { Resvg } from '@resvg/resvg-js';
+import sharp from "sharp";
 
 const require = createRequire(import.meta.url);
 
@@ -161,6 +161,5 @@ export async function renderOgImage({ eyebrow, title, site }: OgImageInput): Pro
     { width: WIDTH, height: HEIGHT, fonts }
   );
 
-  const resvg = new Resvg(svg, { fitTo: { mode: 'width', value: WIDTH } });
-  return resvg.render().asPng();
+  return await sharp(Buffer.from(svg)).png().toBuffer();
 }
