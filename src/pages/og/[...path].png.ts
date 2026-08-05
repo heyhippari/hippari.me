@@ -91,13 +91,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return entries;
 };
 
-export const GET: APIRoute = async ({ props }) => {
+export const GET: APIRoute = async ({ props, url }) => {
   const siteConfig = await getConfig();
   const { eyebrow, title } = props as CardProps;
 
-  const png = await renderOgImage({ eyebrow, title, site: siteConfig.title });
+  const png = await renderOgImage({ eyebrow, title, site: siteConfig.title, contextUrl: url });
 
-  return new Response(png, {
+  return new Response(Buffer.from(png), {
     headers: { 'Content-Type': 'image/png' },
   });
 };

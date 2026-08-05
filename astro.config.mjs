@@ -19,7 +19,13 @@ export default defineConfig({
     build: {
       cssCodeSplit: true,
       minify: 'oxc',
-    }
+    },
+    ssr: {
+      // Externalize native / build-time deps so rolldown doesn't bundle them.
+      // Miniflare (the Cloudflare adapter's pre-rendering runtime) runs in
+      // Node.js and can load these natively.
+      external: ['sharp', 'satori'],
+    },
   },
 
   integrations: [mdx(), sitemap()],
@@ -30,16 +36,20 @@ export default defineConfig({
 
   fonts: [
     {
+      // Variable WOFF2 for the website (best compression, smooth weight interpolation)
       name: "Atkinson Hyperlegible Next",
       cssVariable: "--font-atkinson",
       provider: fontProviders.fontsource(),
       weights: ["200 800"],
+      formats: ["woff2", "woff"],
     },
     {
+      // Variable WOFF2 for the website
       name: "Atkinson Hyperlegible Mono",
       cssVariable: "--font-mono",
       provider: fontProviders.fontsource(),
       weights: ["200 800"],
+      formats: ["woff2", "woff"],
       fallbacks: ["monospace"],
     }
   ],
