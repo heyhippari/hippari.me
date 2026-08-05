@@ -44,12 +44,29 @@ export default defineConfig({
       formats: ["woff2", "woff"],
     },
     {
+      // Static WOFF weights for satori OG image generation (satori doesn't support WOFF2)
+      name: "Atkinson Hyperlegible Next",
+      cssVariable: "--font-atkinson",
+      provider: fontProviders.fontsource(),
+      weights: [400, 700],
+      formats: ["woff"],
+    },
+    {
       // Variable WOFF2 for the website
       name: "Atkinson Hyperlegible Mono",
       cssVariable: "--font-mono",
       provider: fontProviders.fontsource(),
       weights: ["200 800"],
-      formats: ["woff2", "woff"],
+      formats: ["woff2"],
+      fallbacks: ["monospace"],
+    },
+    {
+      // Static WOFF weight for satori OG image generation
+      name: "Atkinson Hyperlegible Mono",
+      cssVariable: "--font-mono",
+      provider: fontProviders.fontsource(),
+      weights: [500],
+      formats: ["woff"],
       fallbacks: ["monospace"],
     }
   ],
@@ -75,5 +92,10 @@ export default defineConfig({
     })
   },
 
-  adapter: cloudflare()
+  // Prerendering in Node.js (not workerd/miniflare) is required because the
+  // OG image endpoint (src/pages/og) uses `sharp` and fetches local font
+  // files — neither of which works in the Workers runtime.
+  adapter: cloudflare({
+    prerenderEnvironment: 'node',
+  })
 });
