@@ -97,5 +97,12 @@ export default defineConfig({
   // files — neither of which works in the Workers runtime.
   adapter: cloudflare({
     prerenderEnvironment: 'node',
+    // Pre-optimize images at build time instead of using the Cloudflare
+    // Images binding. The binding's dev endpoint imports `cloudflare:workers`,
+    // which doesn't resolve when prerendering runs in the Node environment.
+    imageService: {
+      build: 'compile',
+      runtime: 'cloudflare-binding',
+    }
   })
 });

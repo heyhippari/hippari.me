@@ -2,7 +2,7 @@
 
 /* ─── Shared prose styling for rendered Markdown ─────────────────────────── */
 @utility markdown-content {
-  @apply prose prose-neutral prose-headings:font-sans prose-headings:font-light prose-p:font-sans
+  @apply prose prose-invert prose-neutral prose-headings:font-sans prose-headings:font-light prose-p:font-sans
          prose-a:text-foreground prose-blockquote:border-border prose-hr:border-border/50;
 }
 

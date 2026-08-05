@@ -26,7 +26,7 @@ export const defaultConfig: UserConfig = {
   social: [],
 
   heroText:     'Personal website, digital garden, mind dump, whatever.',
-  tagline:      'pulling; stretching; tension​',
+  tagline:      'pulling; stretching; tension',
   postsPerPage: 10,
   recentPosts:  5,
   showLogo:     false,
