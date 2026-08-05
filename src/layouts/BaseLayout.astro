@@ -62,15 +62,14 @@ const ogImageUrl = absoluteUrl(ogImage ?? getOgImagePath(activePath), Astro.site
     <link rel="stylesheet" href={getAssetPath("pagefind/pagefind-component-ui.css")} />
     <script is:inline type="module" src={getAssetPath("pagefind/pagefind-component-ui.js")}></script>
 
-    <Font cssVariable="--font-serif" preload />
+    <Font cssVariable="--font-atkinson" preload />
     <Font cssVariable="--font-mono" preload />
-    <Font cssVariable="--font-hand" preload />
     
     <slot name="head" />
   </head>
 
   <body
-    class="bg-background text-foreground font-serif selection:bg-primary/60 selection:text-primary-foreground min-h-svh">
+    class="bg-background text-foreground font-sans selection:bg-primary/60 selection:text-primary-foreground min-h-svh">
     <Header />
     <main>
       <slot />

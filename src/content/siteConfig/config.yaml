@@ -8,17 +8,17 @@
 
 # ── Site identity ─────────────────────────────────────────────────────────────
 - id: config
-  title: Patrika
-  description: A field notebook, kept in the open
-  url: https://patrika.pages.dev  # ← replace with your domain
+  title: Hippari
+  description: Personal website, digital garden, mind dump, whatever.
+  url: https://hippari.me
   locale: en
 
   # ── Author ────────────────────────────────────────────────────────────────────
 
   author:
-    name: The Localhost Studio           # ← replace
+    name: Hippari
     bio: A short line about who you are and what you write about.
-    url: https://amitkul.in  # ← replace
+    url: https://hippari.me
     # avatar: /images/avatar.jpg
 
   # ── Assets ───────────────────────────────────────────────────────────────────

@@ -16,7 +16,7 @@ const { items, emptyMessage = "Nothing here yet." } = Astro.props;
   <ul class="space-y-2">
     {items.map((item) => (
       <li>
-        <a href={item.href} class="font-serif text-lg hover:underline">
+        <a href={item.href} class=" text-lg hover:underline">
           {item.label}
         </a>
       </li>

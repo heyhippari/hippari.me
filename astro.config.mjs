@@ -8,15 +8,17 @@ import sitemap from "@astrojs/sitemap";
 import { wikilinkResolver, directiveToHtml, obsidianTextFormatting } from './src/plugins/satteri.ts';
 import { resolveVaultImagePaths, imageAttributes, galleryGrouping } from './src/plugins/satteri-gallery.ts';
 
+import cloudflare from "@astrojs/cloudflare";
+
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://your-site.example', // ← replace with your domain (also update config.yaml)
+  site: 'https://hippari.me',
 
   vite: {
     plugins: [tailwindcss()],
     build: {
       cssCodeSplit: true,
-      minify: 'esbuild',
+      minify: 'oxc',
     },
   },
 
@@ -25,32 +27,21 @@ export default defineConfig({
   experimental: {
     contentIntellisense: true,
   },
-  
+
   fonts: [
     {
-      name: "Literata",
-      cssVariable: "--font-serif",
+      name: "Atkinson Hyperlegible Next",
+      cssVariable: "--font-atkinson",
       provider: fontProviders.fontsource(),
-      weights: [300, 400, 500, 600, 700],
-      fallbacks: ["serif"],
-      formats: ["woff", "ttf"],
+      weights: ["200 800"],
     },
     {
-      name: "DM Mono",
+      name: "Atkinson Hyperlegible Mono",
       cssVariable: "--font-mono",
       provider: fontProviders.fontsource(),
-      weights: [400, 500, 600, 700],
+      weights: ["200 800"],
       fallbacks: ["monospace"],
-      formats: ["woff", "ttf"],
-    },
-    {
-      name: "Patrick Hand",
-      cssVariable: "--font-hand",
-      provider: fontProviders.fontsource(),
-      weights: [400, 500, 600, 700],
-      fallbacks: ["serif"],
-      formats: ["woff", "ttf"],
-    },
+    }
   ],
 
   markdown: {
@@ -72,5 +63,7 @@ export default defineConfig({
         superscript: true,
       }
     })
-  }
+  },
+
+  adapter: cloudflare()
 });

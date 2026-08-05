@@ -27,8 +27,8 @@ implementation reference.
 ## Quickstart
 
 ```sh
-pnpm install
-pnpm dev
+bun install
+bun dev
 ```
 
 Then:
@@ -44,11 +44,11 @@ Then:
 
 | Command        | Action                                                                 |
 | :------------- | :---------------------------------------------------------------------|
-| `pnpm install` | Install dependencies                                                  |
-| `pnpm dev`     | Start the dev server at `localhost:4321`                               |
-| `pnpm build`   | Build to `./dist/`, then build the Pagefind search index and copy it into `public/` |
-| `pnpm preview` | Preview the production build locally                                   |
-| `pnpm astro …` | Run any Astro CLI command (`astro check`, `astro add`, …)              |
+| `bun install` | Install dependencies                                                  |
+| `bun dev`     | Start the dev server at `localhost:4321`                               |
+| `bun build`   | Build to `./dist/`, then build the Pagefind search index and copy it into `public/` |
+| `bun preview` | Preview the production build locally                                   |
+| `bun astro …` | Run any Astro CLI command (`astro check`, `astro add`, …)              |
 
 ## Customization
 

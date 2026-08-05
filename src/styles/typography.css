@@ -2,7 +2,7 @@
 
 /* ─── Shared prose styling for rendered Markdown ─────────────────────────── */
 @utility markdown-content {
-  @apply prose prose-neutral prose-headings:font-serif prose-headings:font-light prose-p:font-serif
+  @apply prose prose-neutral prose-headings:font-sans prose-headings:font-light prose-p:font-sans
          prose-a:text-foreground prose-blockquote:border-border prose-hr:border-border/50;
 }
 
@@ -15,7 +15,7 @@
   }
 
   p {
-    @apply font-hand leading-relaxed;
+    @apply leading-relaxed;
   }
 
   .footnote-backref {
@@ -31,7 +31,7 @@
 
 .annotated .aside p,
 .annotated .annotation p {
-  @apply font-hand text-sm;
+  @apply text-sm;
 }
 
 /* Mobile default: a normal block, set off with a left rule. */

@@ -1,16 +1,16 @@
 :root {
 /* ─── Base scale ─────────────────────────────────────────────────────────── */
-  --base-50:  #F5F4ED;
-  --base-100: #ECEAE2;
-  --base-200: #DDDAD1;
-  --base-300: #C7C3B9;
-  --base-400: #A9A499;
-  --base-500: #8A867C;
-  --base-600: #6E6A62;
-  --base-700: #56534D;
-  --base-800: #3F3D39;
-  --base-900: #252523;
-  --base-950: #141413;
+  --base-50:  var(--color-mauve-50);
+  --base-100: var(--color-mauve-100);
+  --base-200: var(--color-mauve-200);
+  --base-300: var(--color-mauve-300);
+  --base-400: var(--color-mauve-400);
+  --base-500: var(--color-mauve-500);
+  --base-600: var(--color-mauve-600);
+  --base-700: var(--color-mauve-700);
+  --base-800: var(--color-mauve-800);
+  --base-900: var(--color-mauve-900);
+  --base-950: var(--color-mauve-950);
 
   /* ─── Accent palette ───────────────────────────────────────────────────── */
   --clay:    #d97757;
@@ -24,25 +24,25 @@
 
   /* ─── Semantic tokens ──────────────────────────────────────────────────── */
 
-  --background          : var(--base-50);
-  --foreground          : var(--base-950);
-  --card                : var(--base-100);
-  --card-foreground     : var(--base-700);
-  --muted               : var(--base-200);
+  --background          : var(--base-950);
+  --foreground          : var(--base-50);
+  --card                : var(--base-900);
+  --card-foreground     : var(--base-300);
+  --muted               : var(--base-800);
   --muted-foreground    : var(--base-500);
-  --accent              : var(--base-300);
-  --accent-foreground   : var(--base-900);
-  --border              : var(--base-300);
+  --accent              : var(--base-700);
+  --accent-foreground   : var(--base-100);
+  --border              : var(--base-700);
   --primary             : var(--olive);
-  --primary-foreground  : var(--base-50);
+  --primary-foreground  : var(--base-950);
 
   /* ─── Stamp tokens ─────────────────────────────────────────────────────── */
   --stamp:  color-mix(in oklch, var(--clay) 8%, transparent);
   --stamp-foreground: var(--clay);
 
   /* ─── Surface + dot grid ────────────────────────────────────────────────── */
-  --paper-deep: var(--base-100);
-  --dot-grid:   color-mix(in oklch, var(--base-300) 50%, transparent);
+  --paper-deep: var(--base-900);
+  --dot-grid:   color-mix(in oklch, var(--base-700) 50%, transparent);
 
   /* ─── Primary muted ─────────────────────────────────────────────────────── */
   --primary-muted: color-mix(in oklch, var(--olive) 15%, transparent);
@@ -54,9 +54,8 @@
 /* ─── Tailwind theme mapping ─────────────────────────────────────────────── */
 @theme inline{
 
-  --font-body:  var(--font-serif);
+  --font-sans:  var(--font-atkinson);
   --font-mono:  var(--font-mono);
-  --font-hand:  var(--font-hand);
 
 
   --color-background:         var(--background);

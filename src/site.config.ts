@@ -1,13 +1,13 @@
 import type { UserConfig } from './types'
 
 export const defaultConfig: UserConfig = {
-  title:       'Patrika',
-  description: 'A field notebook, kept in the open',
-  url:         'https://example.com',
+  title:       'Hippari',
+  description: 'Personal website, digital garden, mind dump, whatever.',
+  url:         'https://hippari.me',
   locale:      'en',
 
   author: {
-    name: 'Your Name',
+    name: 'Hippari',
   },
 
   navigation: [
@@ -25,8 +25,8 @@ export const defaultConfig: UserConfig = {
 
   social: [],
 
-  heroText:     'A field notebook, kept in the open',
-  tagline:      'attention · craft · slowness',
+  heroText:     'Personal website, digital garden, mind dump, whatever.',
+  tagline:      'pulling; stretching; tension​',
   postsPerPage: 10,
   recentPosts:  5,
   showLogo:     false,
