@@ -13,7 +13,7 @@ import type { BrowseIndexConfig } from "@/types";
  * instead of duplicating the markup per tab.
  */
 interface Props {
-  entries:   (CollectionEntry<"posts"> | CollectionEntry<"notes">)[];
+  entries:   (CollectionEntry<"posts"> | CollectionEntry<"articles">)[];
   indexes:   BrowseIndexConfig[];
   showYears: boolean;
 }

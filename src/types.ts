@@ -11,7 +11,7 @@ export interface SocialItem {
   icon?: SocialIcon
 }
 
-/** One browsable dimension, sourced from `meta[key]` on posts/notes. */
+/** One browsable dimension, sourced from `meta[key]` on posts/articles. */
 export interface BrowseIndexConfig {
   key:   string  // child key inside an entry's `meta` object
   title: string  // display title, e.g. "Places"

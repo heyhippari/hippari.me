@@ -6,7 +6,6 @@ import mdx from '@astrojs/mdx';
 
 import sitemap from "@astrojs/sitemap";
 import { wikilinkResolver, directiveToHtml, obsidianTextFormatting } from './src/plugins/satteri.ts';
-import { resolveVaultImagePaths, imageAttributes, galleryGrouping } from './src/plugins/satteri-gallery.ts';
 
 import cloudflare from "@astrojs/cloudflare";
 
@@ -73,8 +72,8 @@ export default defineConfig({
 
   markdown: {
     processor: satteri({
-      mdastPlugins: [directiveToHtml, obsidianTextFormatting, resolveVaultImagePaths],
-      hastPlugins: [wikilinkResolver, imageAttributes, galleryGrouping],
+      mdastPlugins: [directiveToHtml, obsidianTextFormatting],
+      hastPlugins: [wikilinkResolver],
       features: {
         wikilinks: true,
         directive: true,
@@ -96,7 +95,7 @@ export default defineConfig({
   // OG image endpoint (src/pages/og) uses `sharp` and fetches local font
   // files — neither of which works in the Workers runtime.
   adapter: cloudflare({
-    prerenderEnvironment: 'node',
+    prerenderEnvironment: process.argv.includes('build') ? 'node' : undefined,
     // Pre-optimize images at build time instead of using the Cloudflare
     // Images binding. The binding's dev endpoint imports `cloudflare:workers`,
     // which doesn't resolve when prerendering runs in the Node environment.

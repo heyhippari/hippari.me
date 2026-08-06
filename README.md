@@ -9,15 +9,15 @@ implementation reference.
 
 ## Features
 
-- **Content collections** for essays, notes, and standalone pages, plus a
+- **Content collections** for articles, blog posts, and standalone pages, plus a
   config-as-content `siteConfig` collection.
 - **Obsidian-flavored markdown** — wikilinks (`[[Page]]`, `[[Page#Heading]]`),
   image embeds, `%%comments%%`, `==highlights==`, and `:::aside`/`:::annotation`
   directives, powered by a native [Sätteri](https://www.npmjs.com/package/satteri)
   markdown pipeline (not remark/unified).
-- **Backlinks** between notes, computed from wikilinks.
+- **Backlinks** between articles, computed from wikilinks.
 - **Inline image galleries** with a lightbox (GLightbox) for consecutive
-  images in a post or note.
+  images in a post or article.
 - **A generic browse system** (`/browse`) driven entirely by an optional
   `meta` object in frontmatter and a `browse` config block — no hardcoded
   metadata keys.
@@ -37,7 +37,7 @@ Then:
    — set your real domain (`url`), author, navigation, and social links.
 2. Set the matching `site` value in [astro.config.mjs](astro.config.mjs)
    (required for RSS/sitemap to generate correct absolute URLs).
-3. Add your own writing under `src/content/posts/`, `src/content/notes/`,
+3. Add your own writing under `src/content/articles/`, `src/content/posts/`,
    and `src/content/pages/`, replacing the sample entries there.
 
 ## Commands

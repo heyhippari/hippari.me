@@ -33,9 +33,9 @@
 
   navigation:
     - title: Articles
+      url: /articles
+    - title: Blog
       url: /posts
-    - title: Notes
-      url: /notes
     - title: Archive
       url: /archive
     - title: About
@@ -68,7 +68,7 @@
   # ── Content display ───────────────────────────────────────────────────────────
 
   # Shown as the opening line on the garden homepage
-  heroText: Notes, observations, and the occasional long read.  # ← replace
+  heroText: "Personal website, digital garden, mind dump, whatever."
 
   # Shown in the footer (optional — remove the line to hide)
   footerCredits: ""  # ← replace with your tagline, or delete this line

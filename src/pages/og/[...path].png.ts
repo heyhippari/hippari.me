@@ -8,11 +8,11 @@ import type { APIRoute, GetStaticPaths } from 'astro';
 import { getConfig } from '@/utils/config';
 import {
   getAllPosts,
-  getAllNotes,
+  getAllArticles,
   getAllPages,
   getAllEntries,
   getPostSlugPath,
-  getNoteSlugPath,
+  getArticleSlugPath,
   getPageSlugPath,
 } from '@/utils/content';
 import { getMetaValues, getYears } from '@/utils/browse';
@@ -29,9 +29,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const siteConfig = await getConfig();
   const indexes = siteConfig.browse?.indexes ?? [];
 
-  const [allPosts, allNotes, allPages, allEntries] = await Promise.all([
+  const [allPosts, allArticles, allPages, allEntries] = await Promise.all([
     getAllPosts(),
-    getAllNotes(),
+    getAllArticles(),
     getAllPages(),
     getAllEntries(),
   ]);
@@ -44,8 +44,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   // ── Fixed routes ────────────────────────────────────────────────────────
   add('home', { eyebrow: siteConfig.tagline ?? siteConfig.title, title: siteConfig.title });
-  add('posts', { eyebrow: siteConfig.title, title: 'Essays' });
-  add('notes', { eyebrow: siteConfig.title, title: 'Notes' });
+  add('posts', { eyebrow: siteConfig.title, title: 'Blog' });
+  add('articles', { eyebrow: siteConfig.title, title: 'Articles' });
   add('archive', { eyebrow: siteConfig.title, title: 'Archive' });
   add('browse', { eyebrow: siteConfig.title, title: 'Browse' });
   add('browse/years', { eyebrow: 'Browse', title: 'Years' });
@@ -67,16 +67,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
   // ── Posts ───────────────────────────────────────────────────────────────
   for (const post of allPosts) {
     add(`posts/${getPostSlugPath(post.id, post.filePath)}`, {
-      eyebrow: post.data.category ?? 'Essay',
+      eyebrow: post.data.category ?? 'Post',
       title:   post.data.title,
     });
   }
 
-  // ── Notes ───────────────────────────────────────────────────────────────
-  for (const note of allNotes) {
-    add(`notes/${getNoteSlugPath(note.id, note.filePath)}`, {
-      eyebrow: note.data.category ?? 'Note',
-      title:   note.data.title,
+  // ── Articles ────────────────────────────────────────────────────────────
+  for (const article of allArticles) {
+    add(`articles/${getArticleSlugPath(article.id, article.filePath)}`, {
+      eyebrow: article.data.category ?? 'Article',
+      title:   article.data.title,
     });
   }
 

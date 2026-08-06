@@ -1,0 +1,38 @@
+name: Prose
+
+on:
+  pull_request:
+    paths:
+      - "src/content/**"
+      - ".vale.ini"
+      - ".vale/styles/config/**"
+      - ".github/workflows/vale.yml"
+  push:
+    branches: [main]
+    paths:
+      - "src/content/**"
+      - ".vale.ini"
+      - ".vale/styles/config/**"
+      - ".github/workflows/vale.yml"
+
+permissions:
+  contents: read
+  checks: write
+
+jobs:
+  vale:
+    name: Vale
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Lint prose
+        uses: errata-ai/vale-action@reviewdog
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: src/content
+          reporter: github-pr-check
+          fail_on_error: true
+          filter_mode: nofilter
+          vale_flags: "--minAlertLevel=warning"

@@ -11,10 +11,10 @@ export const defaultConfig: UserConfig = {
   },
 
   navigation: [
-    { title: 'Essays',  url: '/posts' },
-    { title: 'Notes',   url: '/notes' },
-    { title: 'Archive', url: '/archive' },
-    { title: 'About',   url: '/about' },
+    { title: 'Articles', url: '/articles' },
+    { title: 'Blog',     url: '/posts' },
+    { title: 'Archive',  url: '/archive' },
+    { title: 'About',    url: '/about' },
   ],
 
   footerLinks: [
@@ -23,7 +23,9 @@ export const defaultConfig: UserConfig = {
     { title: 'RSS',      url: '/rss.xml' },
   ],
 
-  social: [],
+  social: [
+    { title: 'GitHub', url: 'https://github.com/heyhippari', icon: 'github' },
+  ],
 
   heroText:     'Personal website, digital garden, mind dump, whatever.',
   tagline:      'pulling; stretching; tension',

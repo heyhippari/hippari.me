@@ -2,7 +2,7 @@
 
 /* ─── Shared prose styling for rendered Markdown ─────────────────────────── */
 @utility markdown-content {
-  @apply prose prose-invert prose-neutral prose-headings:font-sans prose-headings:font-light prose-p:font-sans
+  @apply prose prose-invert prose-purple prose-p:text-justify prose-headings:font-sans prose-headings:font-light prose-p:font-sans
          prose-a:text-foreground prose-blockquote:border-border prose-hr:border-border/50;
 }
 
@@ -27,16 +27,20 @@
   @apply text-muted-foreground;  
 }
 
-/* ─── Annotations (:::aside / :::annotation) ─────────────────────────────── */
+/* ─── Annotations (:::aside / :::annotation / :::note / :::definition) ────── */
 
 .annotated .aside p,
-.annotated .annotation p {
+.annotated .annotation p,
+.annotated .note p,
+.annotated .definition p {
   @apply text-sm;
 }
 
 /* Mobile default: a normal block, set off with a left rule. */
 .annotated .aside,
-.annotated .annotation {
+.annotated .annotation,
+.annotated .note,
+.annotated .definition {
   @apply font-mono;
   margin-block: 1.5rem;
   padding-left: 0.75rem;
@@ -47,7 +51,9 @@
 }
 
 .annotated .aside__label,
-.annotated .annotation__label {
+.annotated .annotation__label,
+.annotated .note__label,
+.annotated .definition__label {
   display: block;
   margin-bottom: 0.25rem;
   font-style: normal;
@@ -59,7 +65,9 @@
 }
 
 .annotated .aside__date,
-.annotated .annotation__date {
+.annotated .annotation__date,
+.annotated .note__date,
+.annotated .definition__date {
   display: block;
   margin-top: 0.25rem;
   font-style: normal;
@@ -77,7 +85,9 @@
   }
 
   .annotated .aside,
-  .annotated .annotation {
+  .annotated .annotation,
+  .annotated .note,
+  .annotated .definition {
     float: right;
     clear: right;
     width: 12rem;

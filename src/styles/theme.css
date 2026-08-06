@@ -15,7 +15,7 @@
   /* ─── Accent palette ───────────────────────────────────────────────────── */
   --clay:    #d97757;
   --oat:     #e3dacc;
-  --olive:   #788c5d;
+  --olive:   var(--color-purple-500);
   --cactus:  #bcd1ca;
   --sky:     #6a9bcc;
   --heather: #cbcadb;
@@ -29,7 +29,7 @@
   --card                : var(--base-900);
   --card-foreground     : var(--base-300);
   --muted               : var(--base-800);
-  --muted-foreground    : var(--base-500);
+  --muted-foreground    : var(--base-300);
   --accent              : var(--base-700);
   --accent-foreground   : var(--base-100);
   --border              : var(--base-700);

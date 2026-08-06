@@ -7,10 +7,11 @@
  * passed in by the caller (see site.config.ts's `browse.indexes`).
  */
 
-import type { Post, Note } from "./content";
+import type { Post, Article } from "./content";
+import { DateTime } from "luxon";
 import { slugify } from "./text";
 
-export type Entry = Post | Note;
+export type Entry = Post | Article;
 
 export interface BrowseValue {
   value: string;
@@ -61,7 +62,9 @@ export function filterByMetaSlug(
 /** Unique publication years across the given entries, newest first. */
 export function getYears(entries: Entry[]): string[] {
   const years = new Set(
-    entries.map((entry) => String(entry.data.published.getFullYear()))
+    entries.map((entry) =>
+      DateTime.fromJSDate(entry.data.published).year.toString()
+    )
   );
 
   return Array.from(years).sort((a, b) => Number(b) - Number(a));
@@ -70,6 +73,7 @@ export function getYears(entries: Entry[]): string[] {
 /** Entries published in the given year. */
 export function filterByYear(entries: Entry[], year: string): Entry[] {
   return entries.filter(
-    (entry) => String(entry.data.published.getFullYear()) === year
+    (entry) =>
+      DateTime.fromJSDate(entry.data.published).year.toString() === year
   );
 }

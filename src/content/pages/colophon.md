@@ -2,7 +2,7 @@
 title: Colophon
 ---
 
-This site is designed to be simple and content-first, relying more on typography and whitespace than on flashy design trends.
+I designed this site to appear clean, relying more on typography and whitespace than on flashy design trends.
 
 ## Type
 
@@ -12,10 +12,10 @@ Set in [Atkinson Hyperlegible Next](https://www.brailleinstitute.org/freefont/),
 
 Built with [Astro](https://astro.build), styled with [Tailwind CSS](https://tailwindcss.com), and published to [Cloudflare](https://cloudflare.com).
 
-Styles are based on the [patrika template](https://github.com/thelocalhoststudio/patrika) and extensively modified. Markdown is rendered with [Sätteri](https://www.npmjs.com/package/satteri).
+I based the style on the [Patrika template](https://github.com/thelocalhoststudio/patrika) and extensively modified. Astro renders Markdown with [Sätteri](https://www.npmjs.com/package/satteri).
 
-Search is provided by [Pagefind](https://pagefind.app), running entirely in the browser.
+The site provides browser-based search using [Pagefind](https://pagefind.app).
 
 ## Principles
 
-Content first. Quiet interfaces. No tracking, no analytics, no comments — just writing, presented as plainly as print, with accessibility and legibility as a core tenet.
+Content first. Quiet interfaces. No tracking, no analytics, no comments -- just writing, presented as plainly as print, with accessibility and legibility as a core tenet.

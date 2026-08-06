@@ -3,7 +3,7 @@ import type { CollectionEntry } from "astro:content";
 import PostFeed from "@/components/PostFeed.astro";
 
 interface Props {
-  entries: (CollectionEntry<"posts"> | CollectionEntry<"notes">)[];
+  entries: (CollectionEntry<"posts"> | CollectionEntry<"articles">)[];
   emptyMessage?: string;
 }
 

@@ -3,20 +3,20 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHeader from "@/components/PageHeader.astro";
 import Section from "@/components/Section.astro";
 import NotesGrid from "@/components/NotesGrid.astro";
-import { getAllNotes } from "@/utils/content";
+import { getAllArticles } from "@/utils/content";
 
-const allNotes = await getAllNotes();
+const allArticles = await getAllArticles();
 ---
 
-<BaseLayout title="Notes">
+<BaseLayout title="Articles">
   <div class="layout-content">
     <PageHeader
-      eyebrow="Notes"
-      title="Notes"
-      lede="Short and provisional — the habit of writing things down carefully."
+      eyebrow="Articles"
+      title="Articles"
+      lede="Long-form reference pieces — documentation, subject notes, checklists, and plans."
     />
     <Section>
-      <NotesGrid notes={allNotes} />
+      <NotesGrid notes={allArticles} />
     </Section>
   </div>
 </BaseLayout>

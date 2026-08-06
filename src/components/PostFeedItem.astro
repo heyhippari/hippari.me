@@ -2,11 +2,11 @@
 import type { CollectionEntry } from "astro:content";
 import ImageWrapper from "@/components/ImageWrapper.astro";
 import { getCoverImage } from "@/utils/image";
-import { getPostUrl, getNoteUrl } from "@/utils/content";
+import { getPostUrl, getArticleUrl } from "@/utils/content";
 import { formatDate, formatMonthYear } from "@/utils/text";
 
 interface Props {
-  post: CollectionEntry<"posts"> | CollectionEntry<"notes">;
+  post: CollectionEntry<"posts"> | CollectionEntry<"articles">;
   variant?: "default" | "featured" | "archive";
 }
 
@@ -15,14 +15,14 @@ const {
   variant = "default",
 } = Astro.props;
 
-const isNote = post.collection === "notes";
-const cover = isNote ? undefined : getCoverImage(post.data.cover);
+const isArticle = post.collection === "articles";
+const cover = isArticle ? undefined : getCoverImage(post.data.cover);
 const date = formatDate(post.data.published);
 const monthYear = formatMonthYear(post.data.published);
-const href = isNote
-  ? getNoteUrl(post.id, post.filePath)
+const href = isArticle
+  ? getArticleUrl(post.id, post.filePath)
   : getPostUrl(post.id, post.filePath);
-const typeLabel = isNote ? "Note" : "Essay";
+const typeLabel = isArticle ? "Article" : "Post";
 
 const isFeatured = variant === "featured";
 const isArchive = variant === "archive";
@@ -52,6 +52,7 @@ const isArchive = variant === "archive";
       <div class="flex flex-col gap-1">
         <time
           datetime={post.data.published.toISOString()}
+          data-date-precision="month"
           class="font-mono text-xs text-muted-foreground tabular-nums"
         >
           {monthYear}

@@ -44,42 +44,70 @@ const schema = {
 <BaseLayout title={post.data.title} description={post.data.description} type="article">
   <StructuredData schema={schema} slot="head" />
   <div class="layout-content">
-    <article class="annotated markdown-content mx-auto max-w-4xl py-8">
+    <header class="pt-8 mx-16">
       <a
         href={getAssetPath("posts")}
-        class="not-prose font-mono text-xs uppercase tracking-wide text-clay hover:underline"
+        class="font-mono text-xs uppercase tracking-wide text-purple-400 hover:underline"
       >
-        ← Essays
+        ← Blog
       </a>
 
-      {cover && (
-        <ImageWrapper
-          src={cover}
-          alt={post.data.title}
-          bare
-          class="not-prose mt-6 aspect-[2/1] w-full object-cover"
-        />
+      {cover ? (
+        <figure class="relative mt-6">
+          <ImageWrapper
+            src={cover}
+            alt={post.data.title}
+            bare
+            class="aspect-2/1 w-full rounded object-cover grayscale"
+          />
+          <div class="absolute inset-0 bg-purple-400 mix-blend-multiply" aria-hidden="true"></div>
+          <div class="absolute inset-0 bg-mauve-700 mix-blend-screen" aria-hidden="true"></div>
+          <div class="absolute inset-0 bg-linear-to-t from-mauve-900/80 via-mauve-900/40 to-transparent" aria-hidden="true"></div>
+
+          <div class="absolute inset-x-0 bottom-0 p-6 sm:p-8">
+            <h1 class="max-w-prose text-4xl leading-tight text-white">
+              {post.data.title}
+            </h1>
+
+            <div class="mt-4 flex items-center gap-2">
+              <time
+                datetime={post.data.published.toISOString()}
+                class="rounded-xs border border-white/40 px-1 font-mono text-xs uppercase tabular-nums text-white/90"
+              >
+                {date}
+              </time>
+              <span class="text-white/50">·</span>
+              <span class="font-mono text-xs uppercase text-white/90">
+                {readingTime.text}
+              </span>
+            </div>
+          </div>
+        </figure>
+      ) : (
+        <>
+          <h1 class="mt-8  text-4xl leading-tight">
+            {post.data.title}
+          </h1>
+
+          <div class="mt-4 flex items-center gap-2">
+            <time
+              datetime={post.data.published.toISOString()}
+              class="rounded-xs border border-border px-1 font-mono text-xs uppercase tabular-nums text-muted-foreground"
+            >
+              {date}
+            </time>
+            <span class="text-muted-foreground/50">·</span>
+            <span class="font-mono text-xs uppercase text-muted-foreground">
+              {readingTime.text}
+            </span>
+          </div>
+
+          <hr class="mt-6 border-border/50" />
+        </>
       )}
+    </header>
 
-      <h1 class="not-prose mt-8  text-4xl leading-tight">
-        {post.data.title}
-      </h1>
-
-      <div class="not-prose mt-4 flex items-center gap-2">
-        <time
-          datetime={post.data.published.toISOString()}
-          class="rounded-xs border border-border px-1 font-mono text-xs uppercase tabular-nums text-muted-foreground"
-        >
-          {date}
-        </time>
-        <span class="text-muted-foreground/50">·</span>
-        <span class="font-mono text-xs uppercase text-muted-foreground">
-          {readingTime.text}
-        </span>
-      </div>
-
-      <hr class="not-prose mt-6 border-border/50" />
-
+    <article class="annotated markdown-content mx-auto pb-8">
       <aside data-pagefind-body>
         <meta data-pagefind-meta="title[content]" content={post.data.title} />
         <meta data-pagefind-sort="date[content]" content={post.data.published.toISOString()} />

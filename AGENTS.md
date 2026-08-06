@@ -291,7 +291,8 @@ If the answer to any is "no", reconsider the implementation.
 Reference for what's actually wired up, since it's gone well past a default
 Astro scaffold:
 
-- **Content collections**: `posts`, `notes`, `pages`, plus `siteConfig`
+- **Content collections**: `articles` (long-form, static), `posts` (blog
+  posts/essays), `pages`, plus `siteConfig`
   (config-as-content via the `file()` loader). Schemas live in
   [content.config.ts](src/content.config.ts).
 - **Config**: defaults in [site.config.ts](src/site.config.ts), overridden by
@@ -300,11 +301,10 @@ Astro scaffold:
   — never import `site.config.ts` directly.
 - **Markdown pipeline**: [Sätteri](https://www.npmjs.com/package/satteri)
   (`@astrojs/markdown-satteri`), not remark/unified. Custom plugins live in
-  [src/plugins/](src/plugins/) (`satteri.ts`, `satteri-gallery.ts`) and are
+  [src/plugins/](src/plugins/) (`satteri.ts`) and are
   wired in [astro.config.mjs](astro.config.mjs). Supported Obsidian-flavored
   syntax: wikilinks and image embeds (native to Sätteri), `%%comments%%` and
-  `==highlights==` (custom plugin), `:::aside`/`:::annotation` directives,
-  inline image galleries with a lightbox (GLightbox), and note backlinks
+  `==highlights==` (custom plugin), `:::aside`/`:::annotation` directives, and article backlinks
   (`buildBacklinkMap()` in [utils/content.ts](src/utils/content.ts)).
 - **Browse system**: a generic, `meta`-driven browsing index at `/browse`,
   configured entirely from `config.yaml`'s `browse` key — it has no

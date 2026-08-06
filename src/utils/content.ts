@@ -1,28 +1,29 @@
 import { getCollection, type CollectionEntry } from "astro:content";
+import { DateTime } from "luxon";
 import { getAssetPath } from "./url";
 import { slugify } from "./text";
 
-import { POSTS_PATH, PAGES_PATH, NOTES_PATH } from "../content.config";
+import { POSTS_PATH, PAGES_PATH, ARTICLES_PATH } from "../content.config";
 export type Post = CollectionEntry<"posts">;
 export type Page = CollectionEntry<"pages">;
-export type Note = CollectionEntry<"notes">;
+export type Article = CollectionEntry<"articles">;
 
 export type AnyEntry = {
   id: string;
   published: Date;
   title: string;
   href: string;
-  collection: 'posts' | 'notes';
+  collection: 'posts' | 'articles';
   category?: string;
   tags?: string[];
   color?: string;
 };
 
-export type AnyCollectionEntry = Post | Note;
+export type AnyCollectionEntry = Post | Article;
 
 let postsCache: Post[] | null = null;
 let pagesCache: Page[] | null = null;
-let notesCache: Note[] | null = null;
+let articlesCache: Article[] | null = null;
 
 function isVisiblePost(post: Post): boolean {
   // Show everything in development
@@ -33,21 +34,20 @@ function isVisiblePost(post: Post): boolean {
   const isDraft = post.data.draft;
 
   const isFuturePost =
-    new Date(post.data.published).getTime() >
-    Date.now();
+    DateTime.fromJSDate(post.data.published) > DateTime.now();
 
   return !isDraft && !isFuturePost;
 }
 
 function sortPosts(posts: Post[]): Post[] {
   return posts.sort((a, b) => {
-    const aDate = new Date(
+    const aDate = DateTime.fromJSDate(
       a.data.updated ?? a.data.published
-    ).getTime();
+    ).toMillis();
 
-    const bDate = new Date(
+    const bDate = DateTime.fromJSDate(
       b.data.updated ?? b.data.published
-    ).getTime();
+    ).toMillis();
 
     return bDate - aDate;
   });
@@ -72,8 +72,12 @@ export async function getAllPosts(): Promise<Post[]> {
 
 function sortPages(pages: Page[]): Page[] {
   return pages.sort((a, b) => {
-    const aDate = new Date(a.data.updated ?? 0).getTime();
-    const bDate = new Date(b.data.updated ?? 0).getTime();
+    const aDate = a.data.updated
+      ? DateTime.fromJSDate(a.data.updated).toMillis()
+      : 0;
+    const bDate = b.data.updated
+      ? DateTime.fromJSDate(b.data.updated).toMillis()
+      : 0;
     return bDate - aDate;
   });
 }
@@ -90,53 +94,55 @@ export async function getAllPages(): Promise<Page[]> {
   return pagesCache;
 }
 
-// ── Notes ──────────────────────────────────────────────────────────────────────
+// ── Articles ───────────────────────────────────────────────────────────────────
 
-function isVisibleNote(note: Note): boolean {
+function isVisibleArticle(article: Article): boolean {
   if (import.meta.env.DEV) {
     return true;
   }
 
-  const isFutureNote =
-    new Date(note.data.published).getTime() > Date.now();
+  const isDraft = article.data.draft;
 
-  return !isFutureNote;
+  const isFutureArticle =
+    DateTime.fromJSDate(article.data.published) > DateTime.now();
+
+  return !isDraft && !isFutureArticle;
 }
 
-function sortNotes(notes: Note[]): Note[] {
-  return notes.sort((a, b) => {
-    const aDate = new Date(
+function sortArticles(articles: Article[]): Article[] {
+  return articles.sort((a, b) => {
+    const aDate = DateTime.fromJSDate(
       a.data.updated ?? a.data.published
-    ).getTime();
+    ).toMillis();
 
-    const bDate = new Date(
+    const bDate = DateTime.fromJSDate(
       b.data.updated ?? b.data.published
-    ).getTime();
+    ).toMillis();
 
     return bDate - aDate;
   });
 }
 
-export async function getAllNotes(): Promise<Note[]> {
-  if (notesCache) {
-    return notesCache;
+export async function getAllArticles(): Promise<Article[]> {
+  if (articlesCache) {
+    return articlesCache;
   }
 
-  const notes = await getCollection("notes", isVisibleNote);
+  const articles = await getCollection("articles", isVisibleArticle);
 
-  notesCache = sortNotes(notes);
+  articlesCache = sortArticles(articles);
 
-  return notesCache;
+  return articlesCache;
 }
 
 /**
- * Posts and notes combined, sorted by published desc. The one shared source
+ * Posts and articles combined, sorted by published desc. The one shared source
  * of "every entry" for the archive and browse pages.
  */
-export async function getAllEntries(): Promise<(Post | Note)[]> {
-  const [posts, notes] = await Promise.all([getAllPosts(), getAllNotes()]);
+export async function getAllEntries(): Promise<(Post | Article)[]> {
+  const [posts, articles] = await Promise.all([getAllPosts(), getAllArticles()]);
 
-  return [...posts, ...notes].sort(
+  return [...posts, ...articles].sort(
     (a, b) => b.data.published.valueOf() - a.data.published.valueOf()
   );
 }
@@ -278,16 +284,16 @@ export function getPostUrl(
 }
 
 /**
- * Remove hidden folders and normalize directory segments for notes.
+ * Remove hidden folders and normalize directory segments for articles.
  *
  * Example:
- * notes/_drafts/on-attention.md
+ * articles/_drafts/on-attention.md
  * -> []
  *
- * notes/tech/self-hosting.md
+ * articles/tech/self-hosting.md
  * -> ["tech"]
  */
-export function getNotePathSegments(
+export function getArticlePathSegments(
   filePath?: string
 ): string[] {
   if (!filePath) {
@@ -295,7 +301,7 @@ export function getNotePathSegments(
   }
 
   return filePath
-    .replace(NOTES_PATH, "")
+    .replace(ARTICLES_PATH, "")
     .split("/")
     .filter(Boolean)
     .filter((segment) => !segment.startsWith("_"))
@@ -304,17 +310,17 @@ export function getNotePathSegments(
 }
 
 /**
- * Generate nested slug path from note file structure.
+ * Generate nested slug path from article file structure.
  *
  * Example:
  * tech/self-hosting.md
  * -> "tech/self-hosting"
  */
-export function getNoteSlugPath(
+export function getArticleSlugPath(
   id: string,
   filePath?: string
 ): string {
-  const segments = getNotePathSegments(filePath);
+  const segments = getArticlePathSegments(filePath);
   const slug = slugify(getPostSlugSegment(id));
 
   return segments.length > 0
@@ -323,41 +329,41 @@ export function getNoteSlugPath(
 }
 
 /**
- * Route param slug used in getStaticPaths() for notes.
+ * Route param slug used in getStaticPaths() for articles.
  *
  * Example:
  * "/tech/self-hosting"
  */
-export function getNoteSlug(
+export function getArticleSlug(
   id: string,
   filePath?: string
 ): string {
-  return `/${getNoteSlugPath(id, filePath)}`;
+  return `/${getArticleSlugPath(id, filePath)}`;
 }
 
 /**
- * Full note URL.
+ * Full article URL.
  *
  * Example:
- * "/notes/tech/self-hosting"
+ * "/articles/tech/self-hosting"
  */
-export function getNoteUrl(
+export function getArticleUrl(
   id: string,
   filePath?: string
 ): string {
   return getAssetPath(
-    `notes/${getNoteSlugPath(id, filePath)}`
+    `articles/${getArticleSlugPath(id, filePath)}`
   );
 }
 
 export async function buildBacklinkMap(): Promise<Map<string, { title: string; slug: string }[]>> {
-  const notes = await getAllNotes();
+  const articles = await getAllArticles();
   const map = new Map<string, { title: string; slug: string }[]>();
 
-  for (const note of notes) {
-    const body = note.body ?? '';
-    const noteSlug = getNoteSlugPath(note.id, note.filePath);
-    const entry = { title: note.data.title, slug: noteSlug };
+  for (const article of articles) {
+    const body = article.body ?? '';
+    const articleSlug = getArticleSlugPath(article.id, article.filePath);
+    const entry = { title: article.data.title, slug: articleSlug };
 
     // wikilinks: [[Target]], [[Target|Alias]], [[Target#Heading]] — key by the
     // same slug wikilinkResolver (src/plugins/satteri.ts) resolves the target to.
@@ -369,8 +375,8 @@ export async function buildBacklinkMap(): Promise<Map<string, { title: string; s
       map.get(key)!.push(entry);
     }
 
-    // markdown links: [text](/notes/slug)
-    for (const match of body.matchAll(/\[([^\]]+)\]\(\/notes\/([^)#]+)/g)) {
+    // markdown links: [text](/articles/slug)
+    for (const match of body.matchAll(/\[([^\]]+)\]\(\/articles\/([^)#]+)/g)) {
       const key = match[2];
       if (!map.has(key)) map.set(key, []);
       map.get(key)!.push(entry);
@@ -393,14 +399,16 @@ export function getPostsGroupedByYear(
   entries: Post[]
 ): [string, Post[]][] {
   const grouped = entries.reduce<Record<string, Post[]>>((acc, entry) => {
-    const year = entry.data.published.getFullYear().toString();
+    const year = DateTime.fromJSDate(entry.data.published).year.toString();
     (acc[year] ??= []).push(entry);
     return acc;
   }, {});
 
   for (const year in grouped) {
     grouped[year].sort(
-      (a, b) => b.data.published.valueOf() - a.data.published.valueOf()
+      (a, b) =>
+        DateTime.fromJSDate(b.data.published).toMillis() -
+        DateTime.fromJSDate(a.data.published).toMillis()
     );
   }
 
@@ -409,18 +417,20 @@ export function getPostsGroupedByYear(
   );
 }
 
-export function getNotesGroupedByYear(
-  entries: Note[]
-): [string, Note[]][] {
-  const grouped = entries.reduce<Record<string, Note[]>>((acc, entry) => {
-    const year = entry.data.published.getFullYear().toString();
+export function getArticlesGroupedByYear(
+  entries: Article[]
+): [string, Article[]][] {
+  const grouped = entries.reduce<Record<string, Article[]>>((acc, entry) => {
+    const year = DateTime.fromJSDate(entry.data.published).year.toString();
     (acc[year] ??= []).push(entry);
     return acc;
   }, {});
 
   for (const year in grouped) {
     grouped[year].sort(
-      (a, b) => b.data.published.valueOf() - a.data.published.valueOf()
+      (a, b) =>
+        DateTime.fromJSDate(b.data.published).toMillis() -
+        DateTime.fromJSDate(a.data.published).toMillis()
     );
   }
 

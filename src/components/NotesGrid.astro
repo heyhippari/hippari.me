@@ -3,7 +3,7 @@ import { type CollectionEntry } from "astro:content";
 import NoteCard from "./NoteCard.astro";
 
 interface Props {
-  notes: CollectionEntry<"notes">[];
+  notes: CollectionEntry<"articles">[];
 }
 
 const { notes } = Astro.props;

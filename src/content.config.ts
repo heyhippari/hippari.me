@@ -4,7 +4,7 @@ import { glob, file } from 'astro/loaders';
 
 export const POSTS_PATH = "src/content/posts/";
 export const PAGES_PATH = "src/content/pages/";
-export const NOTES_PATH = "src/content/notes/";
+export const ARTICLES_PATH = "src/content/articles/";
 
 function removeDupsAndLowerCase(array: string[]) {
 	if (!array.length) return array;
@@ -35,7 +35,7 @@ const posts = defineCollection({
     description: z.string(),
     published:   z.coerce.date(),
     updated:     z.coerce.date().optional(),
-    category:    z.string().optional().default('Travels'),
+    category:    z.string().optional(),
     tags:        z.array(z.string()).transform(removeDupsAndLowerCase).optional(),
     cover:       z.string().optional(),
     featured:    z.boolean().default(false),
@@ -47,8 +47,8 @@ const posts = defineCollection({
   }),
 });
 
-const notes = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/notes' }),
+const articles = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/articles' }),
   schema: z.object({
     title:       z.string(),
     description: z.string().optional(),
@@ -109,4 +109,4 @@ const siteConfig = defineCollection({
   }),
 })
 
-export const collections = { pages, posts, notes, siteConfig };
+export const collections = { pages, posts, articles, siteConfig };

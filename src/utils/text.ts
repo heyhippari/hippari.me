@@ -1,5 +1,7 @@
+import {DateTime} from 'luxon';
+
 export function getSeason(date: Date): 'Spring' | 'Summer' | 'Monsoon' | 'Winter' {
-  const m = date.getMonth() + 1;
+  const m = DateTime.fromJSDate(date).month;
   if (m === 3 || m === 4) return 'Spring';
   if (m === 5 || m === 6) return 'Summer';
   if (m >= 7 && m <= 9)  return 'Monsoon';
@@ -18,18 +20,18 @@ export function formatSeriesTitle(slug: string): string {
 }
 
 export function formatDate(date: Date): string {
-  return date.toLocaleDateString('en-IN', {
-    day:   '2-digit',
+  return DateTime.fromJSDate(date).toLocaleString({
+    day: '2-digit',
     month: 'short',
-    year:  'numeric',
-  })
+    year: 'numeric',
+  });
 }
 
 export function formatMonthYear(date: Date): string {
-  return date.toLocaleDateString('en-IN', {
+  return DateTime.fromJSDate(date).toLocaleString({
     month: 'short',
-    year:  'numeric',
-  })
+    year: 'numeric',
+  });
 }
 
 /**
@@ -86,10 +88,10 @@ export interface ReadingTime {
 
 export function calculateReadingTime(
   content: string,
-  wordsPerMinute = 200
+  wordsPerMinute = 150
 ): ReadingTime {
   if (!content || typeof content !== "string") {
-    return { text: "1 min read", minutes: 1, time: 60000, words: 0 };
+    return { text: "Estimated reading time: ~1 minute", minutes: 1, time: 60000, words: 0 };
   }
 
   const plainText = content
@@ -107,7 +109,7 @@ export function calculateReadingTime(
   const minutes   = Math.max(1, Math.ceil(wordCount / wordsPerMinute));
 
   return {
-    text: `${minutes} min read`,
+    text: `Estimated reading time: ~${minutes} minutes`,
     minutes,
     time: minutes * 60 * 1000,
     words: wordCount,

@@ -75,5 +75,19 @@ const ogImageUrl = absoluteUrl(ogImage ?? getOgImagePath(activePath), Astro.site
       <slot />
     </main>
     <Footer />
+    <script is:inline>
+      // Re-format dates in the reader's locale. The server renders a neutral
+      // default; this enhances <time datetime> elements in place, preserving
+      // each element's precision (full date vs month-year).
+      for (const time of document.querySelectorAll("time[datetime]")) {
+        const date = new Date(time.dateTime);
+        if (Number.isNaN(date.getTime())) continue;
+        const options =
+          time.dataset.datePrecision === "month"
+            ? { month: "short", year: "numeric" }
+            : { day: "2-digit", month: "short", year: "numeric" };
+        time.textContent = new Intl.DateTimeFormat(undefined, options).format(date);
+      }
+    </script>
   </body>
 </html>

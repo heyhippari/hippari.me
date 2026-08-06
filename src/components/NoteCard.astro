@@ -1,15 +1,15 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import { getNoteUrl } from "@/utils/content";
+import { getArticleUrl } from "@/utils/content";
 import { formatDate } from "@/utils/text";
 
 interface Props {
-  note: CollectionEntry<"notes">;
+  note: CollectionEntry<"articles">;
 }
 
 const { note } = Astro.props;
 const date = formatDate(note.data.published);
-const href = getNoteUrl(note.id, note.filePath);
+const href = getArticleUrl(note.id, note.filePath);
 ---
 <article class="group flex min-h-72 border border-border bg-card/40 p-6 transition-all hover:bg-card hover:shadow-xs">
   <a
@@ -17,7 +17,7 @@ const href = getNoteUrl(note.id, note.filePath);
     class="flex flex-1 flex-col"
   >
     <span class="font-mono text-xs uppercase tracking-wide text-muted-foreground">
-      Note
+      Article
     </span>
 
     <h3 class="mt-6  text-xl leading-relaxed group-hover:underline">

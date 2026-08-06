@@ -1,0 +1,7 @@
+# Rejected terminology. Occurrences are flagged as errors.
+# One regex per line. See:
+# https://docs.vale.sh/keys/vocabularies
+
+# Common misspellings of project tooling
+[Aa]strojs
+[Pp]age[Ff]ind

@@ -1,6 +1,6 @@
 import rss from "@astrojs/rss";
 import type { APIContext } from "astro";
-import { getAllEntries, getPostUrl, getNoteUrl } from "@/utils/content";
+import { getAllEntries, getPostUrl, getArticleUrl } from "@/utils/content";
 import { getConfig } from "@/utils/config";
 
 export async function GET(context: APIContext) {
@@ -18,8 +18,8 @@ export async function GET(context: APIContext) {
       link:
         entry.collection === "posts"
           ? getPostUrl(entry.id, entry.filePath)
-          : getNoteUrl(entry.id, entry.filePath),
-      categories: [entry.collection === "posts" ? "Essay" : "Note"],
+          : getArticleUrl(entry.id, entry.filePath),
+      categories: [entry.collection === "posts" ? "Post" : "Article"],
     })),
   });
 }

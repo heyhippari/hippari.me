@@ -1,0 +1,29 @@
+# Accepted terminology for Patrika.
+# One case-sensitive regex per line; entries are enforced exactly
+# (e.g. "JavaScript" flags "Javascript"). See:
+# https://docs.vale.sh/keys/vocabularies
+
+# Site and project names
+Patrika
+Sätteri
+hippari\.me
+
+# Typefaces
+Hyperlegible
+Atkinson
+
+# Tooling
+Astro
+Cloudflare
+Pagefind
+Wrangler
+Tailwind
+Obsidian
+Vale
+
+# Web vocabulary
+frontmatter
+backlinks?
+wikilinks?
+RSS
+MDX

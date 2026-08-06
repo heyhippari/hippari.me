@@ -22,11 +22,11 @@ const BODY_NAME = 'Atkinson Hyperlegible Next';
 const MONO_NAME = 'Atkinson Hyperlegible Mono';
 
 const COLORS = {
-  background: '#F5F4ED',
-  foreground: '#141413',
-  muted:      '#8A867C',
-  border:     '#C7C3B9',
-  clay:       '#d97757',
+  background: '#2a212c',
+  foreground: '#d1d5dc',
+  muted:      '#d7d0d7',
+  border:     '#79697b',
+  clay:       '#ad46ff',
 };
 
 const WIDTH = 1200;

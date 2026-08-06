@@ -10,7 +10,9 @@
     "build": "astro build && pagefind --site dist && cp -r dist/pagefind public/",
     "preview": "astro preview",
     "astro": "astro",
-    "generate-types": "wrangler types"
+    "generate-types": "wrangler types",
+    "lint:prose": "node node_modules/@vvago/vale/index.js && ./node_modules/@vvago/vale/bin/vale --ext md,mdx src/content",
+    "vale:sync": "./node_modules/@vvago/vale/bin/vale sync"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.1.7",
@@ -24,11 +26,16 @@
     "@tailwindcss/vite": "^4.3.2",
     "astro": "^7.0.7",
     "glightbox": "^3.3.1",
+    "luxon": "^3.7.2",
     "pagefind": "^1.5.2",
     "satori": "^0.29.0",
     "satteri": "^0.9.5",
     "sharp": "^0.35.3",
     "tailwindcss": "^4.3.2",
     "wrangler": "^4.119.0"
+  },
+  "devDependencies": {
+    "@types/luxon": "^3.7.3",
+    "@vvago/vale": "^3.17.1"
   }
 }
